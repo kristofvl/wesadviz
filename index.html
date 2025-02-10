@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<script src="https://leeoniya.github.io/uPlot/dist/uPlot.iife.min.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://leeoniya.github.io/uPlot/dist/uPlot.min.css"
+		/>
+		<style>
+			html {
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			h1 {
+				font-size: 14pt;
+			}
+			.topblk {
+				float: left;
+				border: solid;
+				padding: 4px;
+				margin-bottom: 4px;
+				margin-right: 4px;
+				font-size: 12px;
+				height: 180px;
+			}
+			#subjsel {
+				font-size: 18px;
+			}
+		</style>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<h1>
+			Subject_ID:
+			<input
+				id="subjsel"
+				type="number"
+				min="2"
+				max="17"
+				step="1"
+				value="2"
+				onkeydown="return false"
+			/>
+		</h1>
+		<div id="toprow"></div>
+		<script src="viz.js"></script>
+		<div style="clear: both"></div>
+	</body>
+</html>
