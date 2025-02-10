@@ -1,2 +1,2 @@
-# wesad vizualization
+# WESAD vizualization
 
