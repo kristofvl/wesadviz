@@ -19,10 +19,9 @@ var plotData = function () {
 	const ids = [...Array(ecg.length).keys()];
 	const data = [ids, ecg, eda, emg, tmp, acx, acy, acz, rsp];
 	const e4ids = new Array(e4bvp.length);
-	e4ids[0] = 0.0;
-	for (var i = 1; i < e4ids.length; i++) {
-		e4ids[i] = e4ids[i - 1] + ecg.length / e4ids.length;
-	}
+	e4ids[0] = 0.0 - 0;
+	for (var i = 1; i < e4ids.length; i++)
+		e4ids[i] = e4ids[i - 1] + (ecg.length - 0) / e4ids.length;
 	const e4data = [e4ids, e4bvp, e4acx, e4acy, e4acz, e4eda, e4tmp, e4hr];
 	let uSync = uPlot.sync("both");
 	// wheel scroll zoom
@@ -32,8 +31,6 @@ var plotData = function () {
 			u.over.addEventListener(
 				"wheel",
 				(e) => {
-					e.preventDefault();
-					console.log(u);
 					let oxRange = u.scales.x.max - u.scales.x.min;
 					let nxRange = e.deltaY < 0 ? oxRange * 0.95 : oxRange / 0.95;
 					let nxMin =
@@ -107,7 +104,6 @@ var plotData = function () {
 			u.ctx.fillText("acceleration", 2, u.valToPos(e4acy[0], "y", true));
 			u.ctx.fillText("EDA", 2, u.valToPos(e4eda[0], "y", true));
 			u.ctx.fillText("temperature", 2, u.valToPos(e4tmp[64], "y", true));
-			console.log(e4tmp[5]);
 			u.ctx.fillText("HR", 2, u.valToPos(e4hr[0], "y", true));
 		},
 	];
@@ -117,9 +113,15 @@ var plotData = function () {
 		y: false,
 	};
 	let opts = {
-		id: "topChart",
-		width: window.innerWidth - 9,
+		width: window.innerWidth,
 		height: 320,
+		cursor: cursorOpts,
+		axes: [{}, { scale: "readings", side: 1, grid: { show: true } }],
+		scales: { auto: false, x: { time: false } },
+		legend: { show: false },
+	};
+	let resp_opts = {
+		id: "topChart",
 		series: [
 			{ fill: false, ticks: { show: false } },
 			{ label: "ecg", stroke: "purple" },
@@ -131,18 +133,13 @@ var plotData = function () {
 			{ label: "acz", stroke: "red" },
 			{ label: "rsp", stroke: "green" },
 		],
-		cursor: cursorOpts,
 		hooks: { draw: drawHk_top, drawClear: drawClearHk, ready: wheelZoomHk },
-		axes: [{}, { scale: "readings", side: 1, grid: { show: true } }],
-		scales: { auto: false, x: { time: false } },
-		legend: { show: false },
 	};
+	resp_opts = Object.assign(opts, resp_opts);
 	let resp_plot = new uPlot(opts, data, document.body);
 
 	let e4_opts = {
 		id: "btmChart",
-		width: window.innerWidth - 9,
-		height: 320,
 		series: [
 			{ fill: false, ticks: { show: false } },
 			{ label: "bvp", stroke: "purple" },
@@ -153,12 +150,9 @@ var plotData = function () {
 			{ label: "temperature", stroke: "red" },
 			{ label: "hr", stroke: "red" },
 		],
-		cursor: cursorOpts,
 		hooks: { draw: drawHk_btm, drawClear: drawClearHk, ready: wheelZoomHk },
-		axes: [{}, { scale: "readings", side: 1, grid: { show: true } }],
-		scales: { auto: false, x: { time: false } },
-		legend: { show: false },
 	};
+	e4_opts = Object.assign(opts, e4_opts);
 	let e4_plot = new uPlot(e4_opts, e4data, document.body);
 
 	cursorOverride = d.getElementsByClassName("u-cursor-x");
@@ -178,6 +172,15 @@ var plotData = function () {
 				),
 			),
 	);
+
+	function getSize() {
+		return { width: window.innerWidth, height: 320 };
+	}
+
+	window.addEventListener("resize", (e) => {
+		resp_plot.setSize(getSize());
+		e4_plot.setSize(getSize());
+	});
 };
 
 loadScript("dta" + subj.value + ".js", plotData);
