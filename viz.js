@@ -174,7 +174,7 @@ var plotData = function () {
 			.createElement("p")
 			.appendChild(
 				d.createTextNode(
-					"Scroll wheel zooms in and out, double-click resets the plot, click&drag to zoom a selection.",
+					"Scroll wheel zooms in and out, double-click resets the plot, click&drag zooms to a segment.",
 				),
 			),
 	);
