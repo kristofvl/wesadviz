@@ -170,7 +170,11 @@ var plotData = function () {
 	d.body.appendChild(
 		d
 			.createElement("p")
-			.appendChild(d.createTextNode("Scroll wheel zooms in and out")),
+			.appendChild(
+				d.createTextNode(
+					"Scroll wheel zooms in and out, double-click resets the plot, click&drag to zoom a selection.",
+				),
+			),
 	);
 };
 
