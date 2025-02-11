@@ -81,6 +81,7 @@ var plotData = function () {
 				}
 			}
 			u.ctx.textAlign = "left";
+			u.ctx.fillText("RespiBan", 2, 10);
 			u.ctx.fillText("respiration", 2, u.valToPos(rsp[0], "y", true));
 			u.ctx.fillText("acceleration", 2, u.valToPos(acy[0], "y", true));
 			u.ctx.fillText("temperature", 2, u.valToPos(tmp[0], "y", true));
@@ -101,6 +102,7 @@ var plotData = function () {
 				}
 			}
 			u.ctx.textAlign = "left";
+			u.ctx.fillText("Empatica_E4", 2, 10);
 			u.ctx.fillText("BVP", 2, u.valToPos(e4bvp[0], "y", true));
 			u.ctx.fillText("acceleration", 2, u.valToPos(e4acy[0], "y", true));
 			u.ctx.fillText("EDA", 2, u.valToPos(e4eda[0], "y", true));
