@@ -24,6 +24,7 @@ var plotData = function () {
 		e4ids[i] = e4ids[i - 1] + ecg.length / e4ids.length;
 	}
 	const e4data = [e4ids, e4bvp, e4acx, e4acy, e4acz, e4eda, e4tmp, e4hr];
+	let uSync = uPlot.sync("both");
 	// wheel scroll zoom
 	const wheelZoomHk = [
 		(u) => {
@@ -31,6 +32,7 @@ var plotData = function () {
 			u.over.addEventListener(
 				"wheel",
 				(e) => {
+					e.preventDefault();
 					console.log(u);
 					let oxRange = u.scales.x.max - u.scales.x.min;
 					let nxRange = e.deltaY < 0 ? oxRange * 0.95 : oxRange / 0.95;
@@ -42,7 +44,9 @@ var plotData = function () {
 					if (nxMax > u.data[0][u.data[0].length - 1])
 						nxMax = u.data[0][u.data[0].length - 1];
 					u.batch(() => {
-						u.setScale("x", { min: nxMin, max: nxMax });
+						uPlot.sync(u.cursor.sync.key).plots.forEach((p) => {
+							p.setScale("x", { min: nxMin, max: nxMax });
+						});
 					});
 				},
 				{ passive: true },
@@ -157,6 +161,9 @@ var plotData = function () {
 
 	cursorOverride = d.getElementsByClassName("u-cursor-x");
 	for (i of [0, 1]) cursorOverride[i].style = "border-right:3px solid #FF2D7D;";
+
+	uSync.sub(resp_plot);
+	uSync.sub(e4_plot);
 
 	for (id of ["topChart", "btmChart"])
 		d.getElementById(id).style.border = "solid";
