@@ -19,10 +19,13 @@ var plotData = function () {
 	const ids = [...Array(ecg.length).keys()];
 	const data = [ids, ecg, eda, emg, tmp, acx, acy, acz, rsp];
 	const e4ids = new Array(e4bvp.length);
-	e4ids[0] = 0.0 - 0;
+	of1 = e4offsets[0];
+	of2 = e4offsets[1];
+	e4ids[0] = -of1;
 	for (var i = 1; i < e4ids.length; i++)
-		e4ids[i] = e4ids[i - 1] + (ecg.length - 0) / e4ids.length;
-	const e4data = [e4ids, e4bvp, e4acx, e4acy, e4acz, e4eda, e4tmp, e4hr];
+		e4ids[i] = e4ids[i - 1] + (ecg.length + of1 + of2) / e4ids.length;
+	var e4data = [e4ids, e4bvp, e4acx, e4acy, e4acz, e4eda, e4tmp, e4hr];
+
 	let uSync = uPlot.sync("both");
 	// wheel scroll zoom
 	const wheelZoomHk = [
