@@ -176,10 +176,13 @@ var plotData = function () {
 			),
 	);
 
+	// add info material:
+	d.getElementById("infotext").innerHTML = info;
+
+	// allow dynamic resizing:
 	function getSize() {
 		return { width: window.innerWidth, height: 320 };
 	}
-
 	window.addEventListener("resize", (e) => {
 		resp_plot.setSize(getSize());
 		e4_plot.setSize(getSize());

@@ -25,6 +25,44 @@
 			#subjsel {
 				font-size: 18px;
 			}
+			.info {
+				font-size: 14px;
+				position: relative;
+				z-index: 0;
+				color: #066600;
+				border: 1px solid #0d3f00;
+				border-radius: 4px;
+				padding: 0 2px 0 2px;
+				margin: 0 2px 0 2px;
+				background-color: #ddd;
+				font-weight: 400;
+			}
+			.ttip {
+				display: none;
+				float: left;
+				font-family: "Courier New", Courier, monospace;
+			}
+			.info:hover {
+				z-index: 1;
+				background-color: white;
+			}
+			.info:hover .ttip {
+				z-index: 1;
+				display: block;
+				position: absolute;
+				top: 20px;
+				width: 620px;
+				border: 7px double #067a6a;
+				border-radius: 5px;
+				box-shadow: 7px 7px 9px 0px rgba(0, 0, 0, 0.75);
+				background-color: white;
+				color: black;
+				font-size: 12px;
+				font-style: normal;
+				line-height: 1.1em;
+				padding: 9px 27px 9px 27px;
+				text-align: justify;
+			}
 		</style>
 		<meta charset="utf-8" />
 	</head>
@@ -40,6 +78,9 @@
 				value="2"
 				onkeydown="return false"
 			/>
+			<a class="info"
+				>info<span class="ttip"><pre id="infotext">...</pre></span></a
+			>
 		</h1>
 		<div id="toprow"></div>
 		<script src="viz.js"></script>
